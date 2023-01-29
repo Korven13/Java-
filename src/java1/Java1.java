@@ -12,9 +12,12 @@ public class Java1 {
   static int level = 1;
   static int kills = 0;
   static int money = 0;
-  static String[] inventory = { "händer ", "unkown key " };
+  static String[] inventory = {"händer ", "unkown key "};
+  static String[] inventoryf;
   static String[] vapen = { "infinity gauntlet", "svärd", "AK47", "kniv", "händer" };
-  static String[] menu = { "1 - Attack ", "2 - Uppgraderingar ", "3 - Inventory ", "4 - Stats ", "5 - Avsluta" };
+  static String[] menu = { "1 - Starta runda ", "2 - Shop ", "3 - Inventory ", "4 - Stats ", "5 - Avsluta" };
+  static String[] val = { "1 - Atackera ", "2 - Inventory ", "3 - Ducka "};
+  static String[] attackc = { "1 - Simpel attack 75% ", "2 - Standard attack 50% ", "3 - Avancerad attack 33% ", "4 - Super attack 10% "};
   static String[] store_items = { "healing 20 ", "infinity gauntlet 199999 ", "svärd 100 ", "kniv 300 ", "AK47 1500 " };
   static String currentWeapon = "kniv";
   static String[] namnli = {"Herman", "Thor", "Edwin", "Wincent", "Calle", "Lukas", "Mert", "Pouyan", "Kenan", "Kevan", "Vincent", "Usukh", "Sebastina", "Kevin", "Alex", "Benjamin", "Tobias", "Hadi", "Kasper", "Mohamed", "Jennifer", "Tim", "Valter", "Roe", "Axel", "Denise", "Jesper"};
@@ -41,9 +44,16 @@ public class Java1 {
 
   static void attack(float chans) {
       if ( (int)(Math.random() * 100) < chans ){
-          System.out.println(enemyhp);
-          System.out.println(enemyhp = enemyhp - Math.round(attackdmg()/(chans/100)));
-          System.out.println(attackdmg());
+        if ( (enemyhp - Math.round(attackdmg()/(chans/100))) > 0) {
+          enemyhp = enemyhp - Math.round(attackdmg()/(chans/100));
+          System.out.println("Du gjorde " + Math.round(attackdmg()/(chans/100)) + " skada på motståndaren");
+          System.out.println("Motståndarens nya hp: " + enemyhp);
+        }
+        else{
+          System.out.println("Du gjorde " + Math.round(attackdmg()/(chans/100)) + " skada på motståndaren");
+          System.out.println("Du besegrade motsåndaren");
+          enemyhp = 100;
+        }
       }
       else{
           System.out.println("Attacken missade");
@@ -65,29 +75,252 @@ public class Java1 {
     System.out.println("Pengar: " + money);
 }
 
-  static void bracket1(String längd) {
+  static String bracketstreck(String längd) {
+    String streck = "";
     for (int i = 0; i < (9-längd.length()); i++) {
-      System.out.print("_");
+      streck = streck + '_';
     }
-  }
-  
-  static void bracket(String[] bracket) {
-    System.out.println("_" + bracket[0]);
-    bracket1(bracket[0]);
+    return(streck);
   }
 
+  static String[] bracket2;
+  static String[] bracket3;
+  static String vinnare;
+
+  static void bracket(String[] bracket1,String[] bracket2,String[] bracket3,String bracket4, int runda) {
+    if (runda == 1) {
+      System.out.print("_" + bracket1[0]);
+      System.out.println(bracketstreck(bracket1[0]));
+
+      System.out.println("          \\____");
+
+      System.out.print("_" + bracket1[1]);
+      System.out.print(bracketstreck(bracket1[1]));
+      System.out.println("/    \\");
+
+      System.out.println("                \\____");
+
+      System.out.print("_" + bracket1[2]);
+      System.out.print(bracketstreck(bracket1[2]));
+      System.out.println("      /    \\");
+      
+      System.out.println("          \\____/      \\");
+
+      System.out.print("_" + bracket1[3]);
+      System.out.print(bracketstreck(bracket1[3]));
+      System.out.println("/            \\");
+
+      System.out.println("                        \\_____");
+
+      System.out.print("_" + bracket1[4]);
+      System.out.print(bracketstreck(bracket1[4]));
+      System.out.println("              /");
+
+      System.out.println("          \\____        /");
+
+      System.out.print("_" + bracket1[5]);
+      System.out.print(bracketstreck(bracket1[5]));
+      System.out.println("/    \\      /");
+
+      System.out.println("                \\____/");
+
+      System.out.print("_" + bracket1[6]);
+      System.out.print(bracketstreck(bracket1[6]));
+      System.out.println("      /");
+
+      System.out.println("          \\____/");
+
+      System.out.print("_" + bracket1[7]);
+      System.out.print(bracketstreck(bracket1[7]));
+      System.out.println("/");
+      }
+
+      else if (runda == 2) {
+      System.out.print("_" + bracket1[0]);
+      System.out.println(bracketstreck(bracket1[0]));
+
+      System.out.println("          \\_" + bracket2[0] + bracketstreck(bracket2[0]) );
+
+      System.out.print("_" + bracket1[1]);
+      System.out.print(bracketstreck(bracket1[1]));
+      System.out.println("/          \\");
+
+      System.out.println("                      \\____");
+
+      System.out.print("_" + bracket1[2]);
+      System.out.print(bracketstreck(bracket1[2]));
+      System.out.println("            /    \\");
+      
+      System.out.println("          \\_" + bracket2[1] + bracketstreck(bracket2[1]) + "/      \\");
+
+      System.out.print("_" + bracket1[3]);
+      System.out.print(bracketstreck(bracket1[3]));
+      System.out.println("/                  \\");
+
+      System.out.println("                              \\_____");
+
+      System.out.print("_" + bracket1[4]);
+      System.out.print(bracketstreck(bracket1[4]));
+      System.out.println("                    /");
+
+      System.out.println("          \\_" + bracket2[2] + bracketstreck(bracket2[2]) + "        /");
+
+      System.out.print("_" + bracket1[5]);
+      System.out.print(bracketstreck(bracket1[5]));
+      System.out.println("/          \\      /");
+
+      System.out.println("                      \\____/");
+
+      System.out.print("_" + bracket1[6]);
+      System.out.print(bracketstreck(bracket1[6]));
+      System.out.println("            /");
+
+      System.out.println("          \\_" + bracket2[3] + bracketstreck(bracket2[3]) + "/");
+
+      System.out.print("_" + bracket1[7]);
+      System.out.print(bracketstreck(bracket1[7]));
+      System.out.println("/");
+      }
+
+      else if (runda == 3) {
+      System.out.print("_" + bracket1[0]);
+      System.out.println(bracketstreck(bracket1[0]));
+
+      System.out.println("          \\_" + bracket2[0] + bracketstreck(bracket2[0]) );
+
+      System.out.print("_" + bracket1[1]);
+      System.out.print(bracketstreck(bracket1[1]));
+      System.out.println("/          \\");
+
+      System.out.println("                      \\_" + bracket3[0] + bracketstreck(bracket3[0]));
+
+      System.out.print("_" + bracket1[2]);
+      System.out.print(bracketstreck(bracket1[2]));
+      System.out.println("            /          \\");
+      
+      System.out.println("          \\_" + bracket2[1] + bracketstreck(bracket2[1]) + "/            \\");
+
+      System.out.print("_" + bracket1[3]);
+      System.out.print(bracketstreck(bracket1[3]));
+      System.out.println("/                        \\");
+
+      System.out.println("                                    \\_____");
+
+      System.out.print("_" + bracket1[4]);
+      System.out.print(bracketstreck(bracket1[4]));
+      System.out.println("                          /");
+
+      System.out.println("          \\_" + bracket2[2] + bracketstreck(bracket2[2]) + "              /");
+
+      System.out.print("_" + bracket1[5]);
+      System.out.print(bracketstreck(bracket1[5]));
+      System.out.println("/          \\            /");
+
+      System.out.println("                      \\_" + bracket3[1] + bracketstreck(bracket3[1]) + "/");
+
+      System.out.print("_" + bracket1[6]);
+      System.out.print(bracketstreck(bracket1[6]));
+      System.out.println("            /");
+
+      System.out.println("          \\_" + bracket2[3] + bracketstreck(bracket2[3]) + "/");
+
+      System.out.print("_" + bracket1[7]);
+      System.out.print(bracketstreck(bracket1[7]));
+      System.out.println("/");
+      }
+
+      else if (runda == 4) {
+      System.out.print("_" + bracket1[0]);
+      System.out.println(bracketstreck(bracket1[0]));
+
+      System.out.println("          \\_" + bracket2[0] + bracketstreck(bracket2[0]) );
+
+      System.out.print("_" + bracket1[1]);
+      System.out.print(bracketstreck(bracket1[1]));
+      System.out.println("/          \\");
+
+      System.out.println("                      \\_" + bracket3[0] + bracketstreck(bracket3[0]));
+
+      System.out.print("_" + bracket1[2]);
+      System.out.print(bracketstreck(bracket1[2]));
+      System.out.println("            /          \\");
+      
+      System.out.println("          \\_" + bracket2[1] + bracketstreck(bracket2[1]) + "/            \\");
+
+      System.out.print("_" + bracket1[3]);
+      System.out.print(bracketstreck(bracket1[3]));
+      System.out.println("/                        \\");
+
+      System.out.println("                                    \\_" + bracket4 + "_");
+
+      System.out.print("_" + bracket1[4]);
+      System.out.print(bracketstreck(bracket1[4]));
+      System.out.println("                          /");
+
+      System.out.println("          \\_" + bracket2[2] + bracketstreck(bracket2[2]) + "              /");
+
+      System.out.print("_" + bracket1[5]);
+      System.out.print(bracketstreck(bracket1[5]));
+      System.out.println("/          \\            /");
+
+      System.out.println("                      \\_" + bracket3[1] + bracketstreck(bracket3[1]) + "/");
+
+      System.out.print("_" + bracket1[6]);
+      System.out.print(bracketstreck(bracket1[6]));
+      System.out.println("            /");
+
+      System.out.println("          \\_" + bracket2[3] + bracketstreck(bracket2[3]) + "/");
+
+      System.out.print("_" + bracket1[7]);
+      System.out.print(bracketstreck(bracket1[7]));
+      System.out.println("/");
+      }
+  }
 
 
   public static void main(String[] args) {
-     Scanner tangentbord = new Scanner(System.in);
+    Scanner tangentbord = new Scanner(System.in);
+
+    System.out.print("\033[H\033[2J"); 
+     System.out.println("Vad vill du göra?");
+     list(menu);
+     if (tangentbord.nextInt()==1) {
+           System.out.println("Rundan har börjat!");
+           System.out.println("Vad vill du göra?");
+           list(val);
+           int val = tangentbord.nextInt();
+           if (tangentbord.nextInt()==1) {
+             list(attackc);
+             int val = tangentbord.nextInt();
+             if (val==1) {
+              attack(75);
+             }
+            else if (tangentbord.nextInt()==2) {
+              attack(50);
+             }
+            else if (tangentbord.nextInt()==3) {
+              attack(33);
+            }
+            else if (tangentbord.nextInt()==4) {
+              attack(10);
+            }
+          }
+          else if (tangentbord.nextInt()==2) {
+            System.out.print("Pallar inte fixa");
+          }
+          else if (tangentbord.nextInt()==3) {
+            System.out.print("Pallar inte fixa");
+          }
+          else {
+            System.out.print("Välj från alternativen");
+          }
+     }
+
+
+
+
+
       while (true){
-        System.out.println(namnli.length);
-        System.out.println((int)(Math.random() * namnli.length));
-        
-
-
-
-
       System.out.print("Välj läge:");
       System.out.println("Turnering, Oändlig");
       if (tangentbord.nextLine().equalsIgnoreCase("Turnering")){
@@ -116,16 +349,17 @@ public class Java1 {
             }
             System.out.println(brackets[2]);
           }
+          System.out.print("\033[H\033[2J"); 
           System.out.println("Turneringen har börjat!");
-          String[] bracket = {spelare, brackets[0], brackets[1], brackets[2], brackets[3], brackets[4], brackets[5], "Johan"};
-          bracket(bracket);
-
-
-
+          String[] bracket1 = {spelare, brackets[0], brackets[1], brackets[2], brackets[3], brackets[4], brackets[5], "Johan"};
+          bracket(bracket1, bracket2, bracket3, vinnare, 1);
           System.out.println("Vad vill du göra?");
           list(menu);
           if (tangentbord.nextInt()==1) {
-                
+                System.out.println("Rundan har börjat!");
+                System.out.println("Vad vill du göra");
+                list(val);
+
           }
             
         }
