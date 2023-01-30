@@ -281,45 +281,6 @@ public class Java1 {
   public static void main(String[] args) {
     Scanner tangentbord = new Scanner(System.in);
 
-    System.out.print("\033[H\033[2J"); 
-     System.out.println("Vad vill du göra?");
-     list(menu);
-     if (tangentbord.nextInt()==1) {
-           System.out.println("Rundan har börjat!");
-           System.out.println("Vad vill du göra?");
-           list(val);
-           int val = tangentbord.nextInt();
-           if (tangentbord.nextInt()==1) {
-             list(attackc);
-             int val = tangentbord.nextInt();
-             if (val==1) {
-              attack(75);
-             }
-            else if (tangentbord.nextInt()==2) {
-              attack(50);
-             }
-            else if (tangentbord.nextInt()==3) {
-              attack(33);
-            }
-            else if (tangentbord.nextInt()==4) {
-              attack(10);
-            }
-          }
-          else if (tangentbord.nextInt()==2) {
-            System.out.print("Pallar inte fixa");
-          }
-          else if (tangentbord.nextInt()==3) {
-            System.out.print("Pallar inte fixa");
-          }
-          else {
-            System.out.print("Välj från alternativen");
-          }
-     }
-
-
-
-
-
       while (true){
       System.out.print("Välj läge:");
       System.out.println("Turnering, Oändlig");
@@ -356,10 +317,36 @@ public class Java1 {
           System.out.println("Vad vill du göra?");
           list(menu);
           if (tangentbord.nextInt()==1) {
-                System.out.println("Rundan har börjat!");
-                System.out.println("Vad vill du göra");
-                list(val);
-
+           System.out.print("\033[H\033[2J"); 
+           System.out.println("Rundan har börjat!");
+           System.out.println("Vad vill du göra?");
+           list(val);
+           int val1 = tangentbord.nextInt();
+           if (val1==1) {
+             list(attackc);
+             int val2 = tangentbord.nextInt();
+             if (val2==1) {
+              attack(75);
+             }
+            else if (val2==2) {
+              attack(50);
+             }
+            else if (val2==3) {
+              attack(33);
+            }
+            else if (val2==4) {
+              attack(10);
+            }
+          }
+          else if (val1==2) {
+            System.out.println("Pallar inte fixa");
+          }
+          else if (val1==3) {
+            System.out.println("Pallar inte fixa");
+          }
+          else {
+            System.out.println("Välj från alternativen");
+          }
           }
             
         }
