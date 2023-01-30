@@ -277,17 +277,34 @@ public class Java1 {
       }
   }
 
+  static String[] brackets(String spelare) {
+    String brackets[]  = new String[6];
+    for (int i = 0; i < 6; i++) {
+      while (true) {
+        String namn = namnli[(int)(Math.random() * namnli.length)];
+        if (Arrays.stream(brackets).anyMatch(namn::equals) || namn.equalsIgnoreCase(spelare)) {}
+        else {
+          brackets[i] = namn;
+        break; }
+      }
+      System.out.println(brackets[2]);
+    }
+    return brackets;
+}
+
 
   public static void main(String[] args) {
     Scanner tangentbord = new Scanner(System.in);
-
+    String spelare = tangentbord.nextLine();
+    String[] brackets = brackets(spelare);
+    String[] bracket1 = {spelare, brackets[0], brackets[1], brackets[2], brackets[3], brackets[4], brackets[5], "Johan"};
+    bracket(bracket1, bracket2, bracket3, vinnare, 1);
       while (true){
       System.out.print("Välj läge:");
       System.out.println("Turnering, Oändlig");
       if (tangentbord.nextLine().equalsIgnoreCase("Turnering")){
         System.out.println("Du valde turnering");
         System.out.println("Välj  namn: ");
-          String spelare  = new String();
           while (true) {
               String spelaretest = tangentbord.nextLine();
               if (spelaretest.length() > 10) {
@@ -299,20 +316,12 @@ public class Java1 {
                   break;
               }
           }
-        String brackets[]  = new String[6];
-          for (int i = 0; i < 6; i++) {
-          while (true) {
-            String namn = namnli[(int)(Math.random() * namnli.length)];
-            if (Arrays.stream(brackets).anyMatch(namn::equals) || namn.equalsIgnoreCase(spelare)) {}
-            else {
-              brackets[i] = namn;
-              break; }
-            }
-            System.out.println(brackets[2]);
-          }
+
+
+          
+
           System.out.print("\033[H\033[2J"); 
           System.out.println("Turneringen har börjat!");
-          String[] bracket1 = {spelare, brackets[0], brackets[1], brackets[2], brackets[3], brackets[4], brackets[5], "Johan"};
           bracket(bracket1, bracket2, bracket3, vinnare, 1);
           System.out.println("Vad vill du göra?");
           list(menu);
