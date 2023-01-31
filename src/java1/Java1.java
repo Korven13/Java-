@@ -12,15 +12,20 @@ public class Java1 {
   static int level = 1;
   static int kills = 0;
   static int money = 0;
-  static String[] inventory = {"händer ", "unkown key "};
+  static int runda = 1;
+  static String[] inventory = { "händer ", "unkown key " };
   static String[] inventoryf;
   static String[] vapen = { "infinity gauntlet", "svärd", "AK47", "kniv", "händer" };
   static String[] menu = { "1 - Starta runda ", "2 - Shop ", "3 - Inventory ", "4 - Stats ", "5 - Avsluta" };
-  static String[] val = { "1 - Atackera ", "2 - Inventory ", "3 - Ducka "};
-  static String[] attackc = { "1 - Simpel attack 75% ", "2 - Standard attack 50% ", "3 - Avancerad attack 33% ", "4 - Super attack 10% "};
+  static String[] val = { "1 - Atackera ", "2 - Inventory ", "3 - Ducka " };
+  static String[] attackc = { "1 - Simpel attack 75% ", "2 - Standard attack 50% ", "3 - Avancerad attack 33% ",
+      "4 - Super attack 10% " };
   static String[] store_items = { "healing 20 ", "infinity gauntlet 199999 ", "svärd 100 ", "kniv 300 ", "AK47 1500 " };
-  static String currentWeapon = "kniv";
-  static String[] namnli = {"Herman", "Thor", "Edwin", "Wincent", "Calle", "Lukas", "Mert", "Pouyan", "Kenan", "Kevan", "Vincent", "Usukh", "Sebastina", "Kevin", "Alex", "Benjamin", "Tobias", "Hadi", "Kasper", "Mohamed", "Jennifer", "Tim", "Valter", "Roe", "Axel", "Denise", "Jesper"};
+  static String currentWeapon = "infinity gauntlet";
+
+  static String[] namnli = { "Herman", "Thor", "Edwin", "Wincent", "Calle", "Lukas", "Mert", "Pouyan", "Kenan", "Kevan",
+      "Vincent", "Usukh", "Sebastina", "Kevin", "Alex", "Benjamin", "Tobias", "Hadi", "Kasper", "Mohamed", "Jennifer",
+      "Tim", "Valter", "Roe", "Axel", "Denise", "Jesper" };
 
   static int attackdmg() {
     if (currentWeapon == vapen[0]) {
@@ -42,22 +47,23 @@ public class Java1 {
   static void uppgraderingar() {
   }
 
-  static void attack(float chans) {
-      if ( (int)(Math.random() * 100) < chans ){
-        if ( (enemyhp - Math.round(attackdmg()/(chans/100))) > 0) {
-          enemyhp = enemyhp - Math.round(attackdmg()/(chans/100));
-          System.out.println("Du gjorde " + Math.round(attackdmg()/(chans/100)) + " skada på motståndaren");
-          System.out.println("Motståndarens nya hp: " + enemyhp);
-        }
-        else{
-          System.out.println("Du gjorde " + Math.round(attackdmg()/(chans/100)) + " skada på motståndaren");
-          System.out.println("Du besegrade motsåndaren");
-          enemyhp = 100;
-        }
+  static int attack(float chans) {
+    if ((int) (Math.random() * 100) < chans) {
+      if ((enemyhp - Math.round(attackdmg() / (chans / 100))) > 0) {
+        enemyhp = enemyhp - Math.round(attackdmg() / (chans / 100));
+        System.out.println("Du gjorde " + Math.round(attackdmg() / (chans / 100)) + " skada på motståndaren");
+        System.out.println("Motståndarens nya hp: " + enemyhp);
+        return runda;
+      } else {
+        System.out.println("Du gjorde " + Math.round(attackdmg() / (chans / 100)) + " skada på motståndaren");
+        System.out.println("Du besegrade motsåndaren");
+        enemyhp = 100;
+        return runda++;
       }
-      else{
-          System.out.println("Attacken missade");
-      }
+    } else {
+      System.out.println("Attacken missade");
+      return runda;
+    }
   }
 
   static void list(String[] li) {
@@ -73,21 +79,21 @@ public class Java1 {
     System.out.println("Level: " + level);
     System.out.println("Kills: " + kills);
     System.out.println("Pengar: " + money);
-}
+  }
 
   static String bracketstreck(String längd) {
     String streck = "";
-    for (int i = 0; i < (9-längd.length()); i++) {
+    for (int i = 0; i < (9 - längd.length()); i++) {
       streck = streck + '_';
     }
-    return(streck);
+    return (streck);
   }
 
-  static String[] bracket2;
+  static String[] bracket2 = {"1", "2", "3", "4", "5"};
   static String[] bracket3;
   static String vinnare;
 
-  static void bracket(String[] bracket1,String[] bracket2,String[] bracket3,String bracket4, int runda) {
+  static void bracket(String[] bracket1, String[] bracket2, String[] bracket3, String bracket4) {
     if (runda == 1) {
       System.out.print("_" + bracket1[0]);
       System.out.println(bracketstreck(bracket1[0]));
@@ -103,7 +109,7 @@ public class Java1 {
       System.out.print("_" + bracket1[2]);
       System.out.print(bracketstreck(bracket1[2]));
       System.out.println("      /    \\");
-      
+
       System.out.println("          \\____/      \\");
 
       System.out.print("_" + bracket1[3]);
@@ -133,13 +139,13 @@ public class Java1 {
       System.out.print("_" + bracket1[7]);
       System.out.print(bracketstreck(bracket1[7]));
       System.out.println("/");
-      }
+    }
 
-      else if (runda == 2) {
+    else if (runda == 2) {
       System.out.print("_" + bracket1[0]);
       System.out.println(bracketstreck(bracket1[0]));
 
-      System.out.println("          \\_" + bracket2[0] + bracketstreck(bracket2[0]) );
+      System.out.println("          \\_" + bracket2[0] + bracketstreck(bracket2[0]));
 
       System.out.print("_" + bracket1[1]);
       System.out.print(bracketstreck(bracket1[1]));
@@ -150,7 +156,7 @@ public class Java1 {
       System.out.print("_" + bracket1[2]);
       System.out.print(bracketstreck(bracket1[2]));
       System.out.println("            /    \\");
-      
+
       System.out.println("          \\_" + bracket2[1] + bracketstreck(bracket2[1]) + "/      \\");
 
       System.out.print("_" + bracket1[3]);
@@ -180,13 +186,13 @@ public class Java1 {
       System.out.print("_" + bracket1[7]);
       System.out.print(bracketstreck(bracket1[7]));
       System.out.println("/");
-      }
+    }
 
-      else if (runda == 3) {
+    else if (runda == 3) {
       System.out.print("_" + bracket1[0]);
       System.out.println(bracketstreck(bracket1[0]));
 
-      System.out.println("          \\_" + bracket2[0] + bracketstreck(bracket2[0]) );
+      System.out.println("          \\_" + bracket2[0] + bracketstreck(bracket2[0]));
 
       System.out.print("_" + bracket1[1]);
       System.out.print(bracketstreck(bracket1[1]));
@@ -197,7 +203,7 @@ public class Java1 {
       System.out.print("_" + bracket1[2]);
       System.out.print(bracketstreck(bracket1[2]));
       System.out.println("            /          \\");
-      
+
       System.out.println("          \\_" + bracket2[1] + bracketstreck(bracket2[1]) + "/            \\");
 
       System.out.print("_" + bracket1[3]);
@@ -227,13 +233,13 @@ public class Java1 {
       System.out.print("_" + bracket1[7]);
       System.out.print(bracketstreck(bracket1[7]));
       System.out.println("/");
-      }
+    }
 
-      else if (runda == 4) {
+    else if (runda == 4) {
       System.out.print("_" + bracket1[0]);
       System.out.println(bracketstreck(bracket1[0]));
 
-      System.out.println("          \\_" + bracket2[0] + bracketstreck(bracket2[0]) );
+      System.out.println("          \\_" + bracket2[0] + bracketstreck(bracket2[0]));
 
       System.out.print("_" + bracket1[1]);
       System.out.print(bracketstreck(bracket1[1]));
@@ -244,7 +250,7 @@ public class Java1 {
       System.out.print("_" + bracket1[2]);
       System.out.print(bracketstreck(bracket1[2]));
       System.out.println("            /          \\");
-      
+
       System.out.println("          \\_" + bracket2[1] + bracketstreck(bracket2[1]) + "/            \\");
 
       System.out.print("_" + bracket1[3]);
@@ -274,98 +280,124 @@ public class Java1 {
       System.out.print("_" + bracket1[7]);
       System.out.print(bracketstreck(bracket1[7]));
       System.out.println("/");
-      }
+    }
   }
 
   static String[] brackets(String spelare) {
-    String brackets[]  = new String[6];
+    String brackets[] = new String[6];
     for (int i = 0; i < 6; i++) {
       while (true) {
-        String namn = namnli[(int)(Math.random() * namnli.length)];
-        if (Arrays.stream(brackets).anyMatch(namn::equals) || namn.equalsIgnoreCase(spelare)) {}
-        else {
+        String namn = namnli[(int) (Math.random() * namnli.length)];
+        if (Arrays.stream(brackets).anyMatch(namn::equals) || namn.equalsIgnoreCase(spelare)) {
+        } else {
           brackets[i] = namn;
-        break; }
+          break;
+        }
       }
       System.out.println(brackets[2]);
     }
     return brackets;
-}
+  }
 
+  static void fight(Scanner tangentbord) {
+    System.out.println("Start på fight");
+    System.out.println("Rundan har börjat!");
+    int runda1 = runda;
+    while (runda1 == runda) {
+
+        System.out.println("Vad vill du göra?");
+        list(val);
+        int val1 = tangentbord.nextInt();
+        if (val1 == 1) {
+          list(attackc);
+          int val2 = tangentbord.nextInt();
+          if (val2 == 1) {
+            attack(75);
+          } else if (val2 == 2) {
+            attack(50);
+          } else if (val2 == 3) {
+            attack(33);
+          } else if (val2 == 4) {
+            attack(10);
+          }
+        } else if (val1 == 2) {
+          System.out.println("Pallar inte fixa");
+        } else if (val1 == 3) {
+          System.out.println("Pallar inte fixa");
+        } else {
+          System.out.println("Välj från alternativen");
+        }
+      }
+    System.out.println("Slut på fight");
+  }
 
   public static void main(String[] args) {
+    System.out.print("\033[H\033[2J");
     Scanner tangentbord = new Scanner(System.in);
+
+    fight(tangentbord);
+    tangentbord.nextLine();
     String spelare = tangentbord.nextLine();
     String[] brackets = brackets(spelare);
-    String[] bracket1 = {spelare, brackets[0], brackets[1], brackets[2], brackets[3], brackets[4], brackets[5], "Johan"};
-    bracket(bracket1, bracket2, bracket3, vinnare, 1);
-      while (true){
+    String[] bracket1 = { spelare, brackets[0], brackets[1], brackets[2], brackets[3], brackets[4], brackets[5],
+        "Johan" };
+    bracket(bracket1, bracket2, bracket3, vinnare);
+
+    while (true) {
       System.out.print("Välj läge:");
       System.out.println("Turnering, Oändlig");
-      if (tangentbord.nextLine().equalsIgnoreCase("Turnering")){
+      if (tangentbord.nextLine().equalsIgnoreCase("Turnering")) {
         System.out.println("Du valde turnering");
         System.out.println("Välj  namn: ");
-          while (true) {
-              String spelaretest = tangentbord.nextLine();
-              if (spelaretest.length() > 10) {
-                  System.out.println("Namnet får max vara 10 tecken");
-                  System.out.print("Välj ett nytt namn: ");
-              }
-              else {
-                  spelare = spelaretest;
-                  break;
-              }
+        while (true) {
+          String spelaretest = tangentbord.nextLine();
+          if (spelaretest.length() > 10) {
+            System.out.println("Namnet får max vara 10 tecken");
+            System.out.print("Välj ett nytt namn: ");
+          } else {
+            spelare = spelaretest;
+            break;
           }
+        }
 
+        System.out.print("\033[H\033[2J");
+        System.out.println("Turneringen har börjat!");
+        bracket(bracket1, bracket2, bracket3, vinnare);
+        System.out.println("Vad vill du göra?");
+        list(menu);
+        if (tangentbord.nextInt() == 1) {
+          System.out.print("\033[H\033[2J");
 
-          
-
-          System.out.print("\033[H\033[2J"); 
-          System.out.println("Turneringen har börjat!");
-          bracket(bracket1, bracket2, bracket3, vinnare, 1);
+          System.out.println("Rundan har börjat!");
           System.out.println("Vad vill du göra?");
-          list(menu);
-          if (tangentbord.nextInt()==1) {
-           System.out.print("\033[H\033[2J"); 
-           System.out.println("Rundan har börjat!");
-           System.out.println("Vad vill du göra?");
-           list(val);
-           int val1 = tangentbord.nextInt();
-           if (val1==1) {
-             list(attackc);
-             int val2 = tangentbord.nextInt();
-             if (val2==1) {
+          list(val);
+          int val1 = tangentbord.nextInt();
+          if (val1 == 1) {
+            list(attackc);
+            int val2 = tangentbord.nextInt();
+            if (val2 == 1) {
               attack(75);
-             }
-            else if (val2==2) {
+            } else if (val2 == 2) {
               attack(50);
-             }
-            else if (val2==3) {
+            } else if (val2 == 3) {
               attack(33);
-            }
-            else if (val2==4) {
+            } else if (val2 == 4) {
               attack(10);
             }
-          }
-          else if (val1==2) {
+          } else if (val1 == 2) {
             System.out.println("Pallar inte fixa");
-          }
-          else if (val1==3) {
+          } else if (val1 == 3) {
             System.out.println("Pallar inte fixa");
-          }
-          else {
+          } else {
             System.out.println("Välj från alternativen");
           }
-          }
-            
         }
-        else {
-            System.out.println("välj rimligt nummer");
+
+      } else {
+        System.out.println("välj rimligt nummer");
         continue;
-         }
-        }
-   
-
-
+      }
     }
-  } 
+
+  }
+}
