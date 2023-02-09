@@ -89,11 +89,11 @@ public class Java1 {
     return (streck);
   }
 
-  static String[] bracket2 = {"1", "2", "3", "4", "5"};
+  static String[] bracket2;
   static String[] bracket3;
   static String vinnare;
 
-  static void bracket(String[] bracket1, String[] bracket2, String[] bracket3, String bracket4) {
+  static void bracket(String[] bracket1, String[] bracket2, String[] bracket3, String bracket4, int runda) {
     if (runda == 1) {
       System.out.print("_" + bracket1[0]);
       System.out.println(bracketstreck(bracket1[0]));
@@ -299,9 +299,9 @@ public class Java1 {
     return brackets;
   }
 
-  static void fight(Scanner tangentbord) {
-    System.out.println("Start på fight");
-    System.out.println("Rundan har börjat!");
+  static void fight(Scanner tangentbord, String[] brackets, String motst) {
+    System.out.println("Runda " + runda + " har börjat!");
+    System.out.println("Du möter " + motst);
     int runda1 = runda;
     while (runda1 == runda) {
 
@@ -328,76 +328,109 @@ public class Java1 {
           System.out.println("Välj från alternativen");
         }
       }
-    System.out.println("Slut på fight");
+    System.out.println("Slut på runda");
+  }
+
+  static String namn(Scanner tangentbord) {
+    while (true) {
+      String spelaretest = tangentbord.nextLine();
+      if (spelaretest.length() > 10) {
+        System.out.println("Namnet får max vara 10 tecken");
+        System.out.print("Välj ett nytt namn: ");
+      } else {
+        return spelaretest;
+      }
+    }
+  }
+
+  static void runda(Scanner tangentbord, String[] brackets, String motst) {
+ 
+    System.out.println("Vad vill du göra?");
+        list(menu);
+        int val0 = tangentbord.nextInt();
+        if (val0 == 1) {
+          fight(tangentbord, brackets, motst);
+        }
+        else if (val0 == 2) {
+          System.out.println("pallar inte fixa");
+        } 
+        else if (val0 == 3) {
+          System.out.println("pallar inte fixa");
+        } 
+        else if (val0 == 4) {
+          System.out.println("pallar inte fixa");
+        } 
+        else if (val0 == 5) {
+          System.out.println("Rundan avslutas");
+        } 
+        else {
+        System.out.println("välj rimligt nummer");
+      }
+  }
+
+
+  static String[] brackrand (String[] brackets, String spelare) {
+    Random random = new Random();
+    String[] bracket2 = {spelare, "2", "3", "Johan"};
+    if (random.nextBoolean() == true) {
+      bracket2[1] = brackets[1];
+      if (random.nextBoolean() == true) {
+        bracket2[2] = brackets[3];
+      }
+      else {
+        bracket2[2] = brackets[4];
+      }
+    }
+
+    else {
+      bracket2[1] = brackets[2];
+      if (random.nextBoolean() == true) {
+        bracket2[2] = brackets[3];
+      }
+      else {
+        bracket2[2] = brackets[4];
+      }
+    }
+      return bracket2;
   }
 
   public static void main(String[] args) {
     System.out.print("\033[H\033[2J");
     Scanner tangentbord = new Scanner(System.in);
 
-    fight(tangentbord);
-    tangentbord.nextLine();
-    String spelare = tangentbord.nextLine();
-    String[] brackets = brackets(spelare);
-    String[] bracket1 = { spelare, brackets[0], brackets[1], brackets[2], brackets[3], brackets[4], brackets[5],
-        "Johan" };
-    bracket(bracket1, bracket2, bracket3, vinnare);
-
     while (true) {
       System.out.print("Välj läge:");
       System.out.println("Turnering, Oändlig");
       if (tangentbord.nextLine().equalsIgnoreCase("Turnering")) {
         System.out.println("Du valde turnering");
-        System.out.println("Välj  namn: ");
-        while (true) {
-          String spelaretest = tangentbord.nextLine();
-          if (spelaretest.length() > 10) {
-            System.out.println("Namnet får max vara 10 tecken");
-            System.out.print("Välj ett nytt namn: ");
-          } else {
-            spelare = spelaretest;
-            break;
-          }
-        }
-
+        System.out.print("Välj  namn: ");
+        String spelare = namn(tangentbord);
+        String[] brackets = brackets(spelare);
+        String[] bracket1 = {spelare, brackets[0], brackets[1], brackets[2], brackets[3], brackets[4], brackets[5],
+            "Johan"};
+        String motst = brackets[0];
         System.out.print("\033[H\033[2J");
         System.out.println("Turneringen har börjat!");
-        bracket(bracket1, bracket2, bracket3, vinnare);
-        System.out.println("Vad vill du göra?");
-        list(menu);
-        if (tangentbord.nextInt() == 1) {
-          System.out.print("\033[H\033[2J");
+        bracket(bracket1, bracket2, bracket3, vinnare, runda);
 
-          System.out.println("Rundan har börjat!");
-          System.out.println("Vad vill du göra?");
-          list(val);
-          int val1 = tangentbord.nextInt();
-          if (val1 == 1) {
-            list(attackc);
-            int val2 = tangentbord.nextInt();
-            if (val2 == 1) {
-              attack(75);
-            } else if (val2 == 2) {
-              attack(50);
-            } else if (val2 == 3) {
-              attack(33);
-            } else if (val2 == 4) {
-              attack(10);
-            }
-          } else if (val1 == 2) {
-            System.out.println("Pallar inte fixa");
-          } else if (val1 == 3) {
-            System.out.println("Pallar inte fixa");
-          } else {
-            System.out.println("Välj från alternativen");
-          }
-        }
+        runda(tangentbord, brackets, motst);
+        bracket2 = (brackrand(brackets, spelare));
 
-      } else {
-        System.out.println("välj rimligt nummer");
-        continue;
-      }
+        System.out.println("Runda 2:");
+        motst = bracket2[1];
+
+        bracket(bracket1, bracket2, bracket3, vinnare, runda);
+        runda(tangentbord, brackets, motst);
+
+        System.out.println("Runda 3:");
+        motst = "Johan";
+        String[] bracket3 = {spelare, "Johan"};
+        bracket(bracket1, bracket2, bracket3, vinnare, runda);
+        runda(tangentbord, brackets, motst);
+
+      System.out.print(runda);
     }
 
+  }
   }
 }
