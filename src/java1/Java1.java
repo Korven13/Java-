@@ -51,16 +51,19 @@ public class Java1 {
     if ((int) (Math.random() * 100) < chans) {
       if ((enemyhp - Math.round(attackdmg() / (chans / 100))) > 0) {
         enemyhp = enemyhp - Math.round(attackdmg() / (chans / 100));
+        System.out.print("\033[H\033[2J");
         System.out.println("Du gjorde " + Math.round(attackdmg() / (chans / 100)) + " skada på motståndaren");
         System.out.println("Motståndarens nya hp: " + enemyhp);
         return runda;
       } else {
+        System.out.print("\033[H\033[2J");
         System.out.println("Du gjorde " + Math.round(attackdmg() / (chans / 100)) + " skada på motståndaren");
         System.out.println("Du besegrade motsåndaren");
         enemyhp = 100;
         return runda++;
       }
     } else {
+      System.out.print("\033[H\033[2J");
       System.out.println("Attacken missade");
       return runda;
     }
@@ -300,6 +303,7 @@ public class Java1 {
   }
 
   static void fight(Scanner tangentbord, String[] brackets, String motst) {
+    System.out.print("\033[H\033[2J");
     System.out.println("Runda " + runda + " har börjat!");
     System.out.println("Du möter " + motst);
     int runda1 = runda;
@@ -309,6 +313,7 @@ public class Java1 {
         list(val);
         int val1 = tangentbord.nextInt();
         if (val1 == 1) {
+          System.out.print("\033[H\033[2J");
           list(attackc);
           int val2 = tangentbord.nextInt();
           if (val2 == 1) {
@@ -344,12 +349,13 @@ public class Java1 {
   }
 
   static void runda(Scanner tangentbord, String[] brackets, String motst) {
- 
+    while (true) {
     System.out.println("Vad vill du göra?");
-        list(menu);
+      list(menu);
         int val0 = tangentbord.nextInt();
         if (val0 == 1) {
           fight(tangentbord, brackets, motst);
+          break;
         }
         else if (val0 == 2) {
           System.out.println("pallar inte fixa");
@@ -362,10 +368,12 @@ public class Java1 {
         } 
         else if (val0 == 5) {
           System.out.println("Rundan avslutas");
+          break;
         } 
         else {
         System.out.println("välj rimligt nummer");
       }
+    }
   }
 
 
