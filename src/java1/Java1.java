@@ -337,11 +337,11 @@ public class Java1 {
 
         System.out.println("Vad vill du göra?");
         list(val);
-        int val1 = tangentbord.nextInt();
+        int val1 = check(tangentbord);
         if (val1 == 1) {
           System.out.print("\033[H\033[2J");
           list(attackc);
-          int val2 = tangentbord.nextInt();
+          int val2 = check(tangentbord);
           if (val2 == 1) {
             attack(75, motst);
             if (enemyhp <= 0) {
@@ -396,7 +396,7 @@ public class Java1 {
     while (true) {
     System.out.println("Vad vill du göra?");
       list(menu);
-        int val0 = tangentbord.nextInt();
+        int val0 = check(tangentbord);
         if (val0 == 1) {
           fight(tangentbord, brackets, motst, runda);
           break;
@@ -461,6 +461,18 @@ public class Java1 {
     }
     System.out.println();
   }  
+
+  static int check(Scanner tangentbord) {       
+    while (true) {
+        try {                                
+            return Integer.valueOf(tangentbord.nextLine());
+        } catch (Exception e) {
+            System.out.println("Välj från alternativen genom att skriva in ett nummer");
+
+        }
+    }
+}
+
 
   public static void main(String[] args) {
     System.out.print("\033[H\033[2J");
