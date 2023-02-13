@@ -21,15 +21,10 @@ public class java2 {
 
     public static void main(String[] args) {
       Scanner tangentbord = new Scanner(System.in);
-      System.out.println("Vad vill du göra?");
-      list(menu);
-      if (tangentbord.nextInt()==1) {
-            System.out.println("Rundan har börjat!");
-            System.out.println("Vad vill du göra?");
-            list(val);
-            if (tangentbord.nextInt()==1) {
-              
-            }
+
+      while (true) {
+        int atk = (int)(Math.random() * 3) + 1;
+        System.out.println(atk);
       }
     }
     

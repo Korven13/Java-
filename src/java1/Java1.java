@@ -69,6 +69,32 @@ public class Java1 {
     }
   }
 
+
+  static int attacknpc() {
+    int atk = (int)(Math.random() * 3);
+
+    if ((int) (Math.random() * 100) < chans) {
+      if ((enemyhp - Math.round(attackdmg() / (chans / 100))) > 0) {
+        enemyhp = enemyhp - Math.round(attackdmg() / (chans / 100));
+        System.out.print("\033[H\033[2J");
+        System.out.println("Du gjorde " + Math.round(attackdmg() / (chans / 100)) + " skada på motståndaren");
+        System.out.println("Motståndarens nya hp: " + enemyhp);
+        return runda;
+      } else {
+        System.out.print("\033[H\033[2J");
+        System.out.println("Du gjorde " + Math.round(attackdmg() / (chans / 100)) + " skada på motståndaren");
+        System.out.println("Du besegrade motsåndaren");
+        enemyhp = 100;
+        return runda++;
+      }
+    } else {
+      System.out.print("\033[H\033[2J");
+      System.out.println("Attacken missade");
+      return runda;
+    }
+  }
+
+
   static void list(String[] li) {
     for (String i : li) {
       System.out.println(i);
@@ -318,6 +344,7 @@ public class Java1 {
           int val2 = tangentbord.nextInt();
           if (val2 == 1) {
             attack(75);
+            attacknpc();
           } else if (val2 == 2) {
             attack(50);
           } else if (val2 == 3) {
@@ -439,6 +466,6 @@ public class Java1 {
       System.out.print(runda);
     }
 
-  }
+    }
   }
 }
