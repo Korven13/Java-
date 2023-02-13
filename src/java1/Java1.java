@@ -12,17 +12,16 @@ public class Java1 {
   static int level = 1;
   static int kills = 0;
   static int money = 0;
-  static int runda = 1;
+  static int attackdmgnpc = 15;
   static String[] inventory = { "händer ", "unkown key " };
   static String[] inventoryf;
-  static String[] vapen = { "infinity gauntlet", "svärd", "AK47", "kniv", "händer" };
-  static String[] menu = { "1 - Starta runda ", "2 - Shop ", "3 - Inventory ", "4 - Stats ", "5 - Avsluta" };
+  static String[] vapen = { "Fat man", "svärd", "AK47", "kniv", "händer" };
+  static String[] menu = { "1 - Starta runda ", "2 - Shop ", "3 - Inventory ", "4 - Stats "};
   static String[] val = { "1 - Atackera ", "2 - Inventory ", "3 - Ducka " };
   static String[] attackc = { "1 - Simpel attack 75% ", "2 - Standard attack 50% ", "3 - Avancerad attack 33% ",
       "4 - Super attack 10% " };
-  static String[] store_items = { "healing 20 ", "infinity gauntlet 199999 ", "svärd 100 ", "kniv 300 ", "AK47 1500 " };
-  static String currentWeapon = "infinity gauntlet";
-
+  static String[] store_items = { "healing 20 ", "Fat man 199999 ", "svärd 100 ", "kniv 300 ", "AK47 1500 " };
+  static String currentWeapon = "svärd";
   static String[] namnli = { "Herman", "Thor", "Edwin", "Wincent", "Calle", "Lukas", "Mert", "Pouyan", "Kenan", "Kevan",
       "Vincent", "Usukh", "Sebastina", "Kevin", "Alex", "Benjamin", "Tobias", "Hadi", "Kasper", "Mohamed", "Jennifer",
       "Tim", "Valter", "Roe", "Axel", "Denise", "Jesper" };
@@ -31,7 +30,7 @@ public class Java1 {
     if (currentWeapon == vapen[0]) {
       return 2000;
     } else if (currentWeapon == vapen[1]) {
-      return 5;
+      return 20;
     } else if (currentWeapon == vapen[2]) {
       return 10;
     } else if (currentWeapon == vapen[3]) {
@@ -47,50 +46,52 @@ public class Java1 {
   static void uppgraderingar() {
   }
 
-  static int attack(float chans) {
+  static int attack(float chans, String motst) {
     if ((int) (Math.random() * 100) < chans) {
       if ((enemyhp - Math.round(attackdmg() / (chans / 100))) > 0) {
         enemyhp = enemyhp - Math.round(attackdmg() / (chans / 100));
         System.out.print("\033[H\033[2J");
-        System.out.println("Du gjorde " + Math.round(attackdmg() / (chans / 100)) + " skada på motståndaren");
-        System.out.println("Motståndarens nya hp: " + enemyhp);
-        return runda;
+        System.out.println("Du gjorde " + Math.round(attackdmg() / (chans / 100)) + " skada på " + motst);
+        System.out.println(motst + "s nya hp: " + enemyhp);
+        System.out.println();
+        return enemyhp;
       } else {
+        enemyhp = enemyhp - Math.round(attackdmg() / (chans / 100));
         System.out.print("\033[H\033[2J");
-        System.out.println("Du gjorde " + Math.round(attackdmg() / (chans / 100)) + " skada på motståndaren");
-        System.out.println("Du besegrade motsåndaren");
-        enemyhp = 100;
-        return runda++;
+        System.out.println("Du gjorde " + Math.round(attackdmg() / (chans / 100)) + " skada på " + motst);
+        System.out.println("Du besegrade " + motst);
+        return enemyhp;
       }
     } else {
       System.out.print("\033[H\033[2J");
       System.out.println("Attacken missade");
-      return runda;
+      System.out.println();
+      return enemyhp;
     }
   }
 
 
-  static int attacknpc() {
-    int atk = (int)(Math.random() * 3);
-
+  static int attacknpc(String motst) {
+    float chans  = (int)(Math.random() * 100)+1;
+    System.out.println(motst+" attackerar");
+    vänta();
     if ((int) (Math.random() * 100) < chans) {
-      if ((enemyhp - Math.round(attackdmg() / (chans / 100))) > 0) {
-        enemyhp = enemyhp - Math.round(attackdmg() / (chans / 100));
-        System.out.print("\033[H\033[2J");
-        System.out.println("Du gjorde " + Math.round(attackdmg() / (chans / 100)) + " skada på motståndaren");
-        System.out.println("Motståndarens nya hp: " + enemyhp);
-        return runda;
+      if ((hp - Math.round(attackdmgnpc / (chans / 100))) > 0) {
+        hp = hp - Math.round(attackdmgnpc / (chans / 100));
+        System.out.println(motst + " gjorde " + Math.round(attackdmgnpc / (chans / 100)) + " skada på dig");
+        System.out.println("Ditt nya hp: " + hp);
+        System.out.println();
+        return hp;
       } else {
-        System.out.print("\033[H\033[2J");
-        System.out.println("Du gjorde " + Math.round(attackdmg() / (chans / 100)) + " skada på motståndaren");
-        System.out.println("Du besegrade motsåndaren");
-        enemyhp = 100;
-        return runda++;
+        hp = hp - Math.round(attackdmgnpc / (chans / 100));
+        System.out.println(motst + " gjorde " + Math.round(attackdmgnpc / (chans / 100)) + " skada på dig");
+        System.out.println(motst + " besegrade dig");
+        return hp;
       }
     } else {
-      System.out.print("\033[H\033[2J");
       System.out.println("Attacken missade");
-      return runda;
+      System.out.println();
+      return hp;
     }
   }
 
@@ -122,7 +123,7 @@ public class Java1 {
   static String[] bracket3;
   static String vinnare;
 
-  static void bracket(String[] bracket1, String[] bracket2, String[] bracket3, String bracket4, int runda) {
+  static void bracket(String[] bracket1, String[] bracket2, String[] bracket3, String vinnare, int runda) {
     if (runda == 1) {
       System.out.print("_" + bracket1[0]);
       System.out.println(bracketstreck(bracket1[0]));
@@ -286,7 +287,7 @@ public class Java1 {
       System.out.print(bracketstreck(bracket1[3]));
       System.out.println("/                        \\");
 
-      System.out.println("                                    \\_" + bracket4 + "_");
+      System.out.println("                                    \\_" + vinnare + "_");
 
       System.out.print("_" + bracket1[4]);
       System.out.print(bracketstreck(bracket1[4]));
@@ -328,12 +329,11 @@ public class Java1 {
     return brackets;
   }
 
-  static void fight(Scanner tangentbord, String[] brackets, String motst) {
+  static void fight(Scanner tangentbord, String[] brackets, String motst, int runda) {
     System.out.print("\033[H\033[2J");
     System.out.println("Runda " + runda + " har börjat!");
     System.out.println("Du möter " + motst);
-    int runda1 = runda;
-    while (runda1 == runda) {
+    while (enemyhp > 0 && hp > 0) {
 
         System.out.println("Vad vill du göra?");
         list(val);
@@ -343,14 +343,29 @@ public class Java1 {
           list(attackc);
           int val2 = tangentbord.nextInt();
           if (val2 == 1) {
-            attack(75);
-            attacknpc();
+            attack(75, motst);
+            if (enemyhp <= 0) {
+              continue;
+            }
+            attacknpc(motst);
           } else if (val2 == 2) {
-            attack(50);
+            attack(50, motst);
+            if (enemyhp <= 0) {
+              continue;
+            }
+            attacknpc(motst);
           } else if (val2 == 3) {
-            attack(33);
+            attack(33, motst);
+            if (enemyhp <= 0) {
+              continue;
+            }
+            attacknpc(motst);
           } else if (val2 == 4) {
-            attack(10);
+            attack(10, motst);
+            if (enemyhp <= 0) {
+              continue;
+            }
+            attacknpc(motst);
           }
         } else if (val1 == 2) {
           System.out.println("Pallar inte fixa");
@@ -361,6 +376,8 @@ public class Java1 {
         }
       }
     System.out.println("Slut på runda");
+    System.out.println();
+    enemyhp = 100;
   }
 
   static String namn(Scanner tangentbord) {
@@ -375,13 +392,13 @@ public class Java1 {
     }
   }
 
-  static void runda(Scanner tangentbord, String[] brackets, String motst) {
+  static void runda(Scanner tangentbord, String[] brackets, String motst, int runda) {
     while (true) {
     System.out.println("Vad vill du göra?");
       list(menu);
         int val0 = tangentbord.nextInt();
         if (val0 == 1) {
-          fight(tangentbord, brackets, motst);
+          fight(tangentbord, brackets, motst, runda);
           break;
         }
         else if (val0 == 2) {
@@ -392,10 +409,6 @@ public class Java1 {
         } 
         else if (val0 == 4) {
           System.out.println("pallar inte fixa");
-        } 
-        else if (val0 == 5) {
-          System.out.println("Rundan avslutas");
-          break;
         } 
         else {
         System.out.println("välj rimligt nummer");
@@ -429,11 +442,32 @@ public class Java1 {
       return bracket2;
   }
 
+  static void vänta1() {
+    try
+    {
+        Thread.sleep(1000);
+    }
+    catch(InterruptedException ex)
+    {
+        Thread.currentThread().interrupt();
+    }
+  }
+
+  static void vänta () {
+    vänta1();
+    for (int i = 0; i < 3; i++) {
+    System.out.print(".");
+    vänta1();
+    }
+    System.out.println();
+  }  
+
   public static void main(String[] args) {
     System.out.print("\033[H\033[2J");
     Scanner tangentbord = new Scanner(System.in);
-
     while (true) {
+      int runda = 1;
+      hp=100;
       System.out.print("Välj läge:");
       System.out.println("Turnering, Oändlig");
       if (tangentbord.nextLine().equalsIgnoreCase("Turnering")) {
@@ -448,24 +482,53 @@ public class Java1 {
         System.out.println("Turneringen har börjat!");
         bracket(bracket1, bracket2, bracket3, vinnare, runda);
 
-        runda(tangentbord, brackets, motst);
+        runda(tangentbord, brackets, motst, runda);
         bracket2 = (brackrand(brackets, spelare));
-
+          if (hp <= 0) {
+            System.out.println("Du åkte ut ur första rundan");
+            tangentbord.nextLine();
+            continue;
+          }
+        runda=2;
         System.out.println("Runda 2:");
+        hp = 100;
         motst = bracket2[1];
 
         bracket(bracket1, bracket2, bracket3, vinnare, runda);
-        runda(tangentbord, brackets, motst);
-
+        runda(tangentbord, brackets, motst, runda);
+        if (hp <= 0) {
+          System.out.println("Du kom till andra rundan");
+          tangentbord.nextLine();
+          continue;
+        }
+        runda=3;
         System.out.println("Runda 3:");
+        hp = 100;
+        attackdmgnpc = 1000;
+        enemyhp = 1000;
         motst = "Johan";
         String[] bracket3 = {spelare, "Johan"};
         bracket(bracket1, bracket2, bracket3, vinnare, runda);
-        runda(tangentbord, brackets, motst);
-
-      System.out.print(runda);
+        runda(tangentbord, brackets, motst, runda);
+        if (hp <= 0) {
+          System.out.println("Du åkte ut i finalen");
+          tangentbord.nextLine();
+          attackdmgnpc = 15;
+          enemyhp = 100;
+          continue;
+        }
+        runda=4;
+        vinnare = spelare;
+        bracket(bracket1, bracket2, bracket3, vinnare, runda);
+        System.out.println("Grattis du vann!");
+        System.out.println();
+        tangentbord.nextLine();
+        attackdmgnpc = 15;
+        enemyhp = 100;
     }
-
+    else {
+      System.out.println("Turnering är det edna läget som finns ¯\\_(o.o)_/¯");
     }
+  }
   }
 }
